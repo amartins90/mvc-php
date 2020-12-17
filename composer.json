@@ -1,0 +1,15 @@
+{
+    "name": "amartins/mvc-php",
+    "authors": [
+        {
+            "name": "Alexandre J. Martins",
+            "email": "contato@ajmartins.com.br"
+        }
+    ],
+    "autoload": {
+    	"psr-4": {
+    		"app\\": "./"
+    	}
+    },
+    "require": {}
+}
