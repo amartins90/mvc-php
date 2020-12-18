@@ -11,15 +11,29 @@ namespace app\core;
  */
 class Router
 {
-	protected $routes = [];
+	public $request;
+	protected $routes = array();
+
+	public function __construct($request)
+	{
+		$this->request = $request;
+	}
 
 	public function get($path, $callback)
 	{
 		$this->routes['get'][$path] = $callback;
+
 	}
 
 	public function resolve()
 	{
-		// print_r($_SERVER);
+		$path = $this->request->getPath();
+		$method = $this->request->getMethod();
+		$callback = $this->routes[$method][$path] ?? false;
+		if ($callback === false) {
+			echo "Not found";
+			exit;
+		}
+		echo call_user_func($callback);
 	}
 }
