@@ -40,16 +40,17 @@ class Request
 	public function getBody()
 	{
 		$body = array();
-		if ($this->getMethod() === 'get') {
+		if ($this->isGet()) {
 			foreach ($_GET as $key => $value) {
 				$body[$key] = filter_input(INPUT_GET, $key, FILTER_SANITIZE_SPECIAL_CHARS);
 			}
 		}
 
-		if ($this->getMethod() === 'post') {
+		if ($this->isPost()) {
 			foreach ($_POST as $key => $value) {
 				$body[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS);
 			}
 		}
+		return $body;
 	}
 }
