@@ -5,6 +5,8 @@
  *	
  */
 namespace app\core;
+
+use app\core\Database;
 /*
  *	@author Alexandre J. Martins <contato@ajmartins.com.br>
  *	@package app\core
@@ -17,14 +19,16 @@ class Application
 	public $response;
 	public static $app;
 	public $controller;
+	public $db;
 
-	public function __construct($rootPath)
+	public function __construct($rootPath, $config)
 	{
 		self::$root_dir = $rootPath;
 		self::$app = $this;
 		$this->request = new Request();
 		$this->response = new Response();
  		$this->router = new Router($this->request, $this->response);
+ 		$this->db = new Database($config['db']);
 	}
 
 	public function run()
