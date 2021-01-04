@@ -55,4 +55,15 @@ use app\core\DbModel;
  		return ['firstName', 'lastName', 'email', 'password', 'status'];
  	}
 
+ 	public function labels()
+ 	{
+ 		return [
+ 			'firstName' => 'First Name',
+ 			'lastName' => 'Last Name',
+ 			'email' => 'E-mail',
+ 			'password' => 'Password',
+ 			'confirmPassword' => 'Confirm Password',
+ 		];
+ 	}
+
  }

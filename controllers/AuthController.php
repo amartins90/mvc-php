@@ -9,6 +9,8 @@ namespace app\controllers;
 use app\core\Controller;
 use app\core\Request;
 use app\models\User;
+use app\core\Session;
+use app\core\Application;
 /*
  *	@author Alexandre J. Martins <contato@ajmartins.com.br>
  *	@package app\core
@@ -30,7 +32,9 @@ class AuthController extends Controller
 			$user->loadData($request->getBody());
 
 			if ($user->validate() && $user->save()) {
+				Application::$app->session->setFlash('success', 'Thanks for registering');
 				Application::$app->response->redirect('/');
+				exit;
 			}
 			return $this->render('register', [
 				'model' => $user
