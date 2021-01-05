@@ -31,6 +31,11 @@ use app\core\DbModel;
  		return 'users';
  	}
 
+ 	public function primaryKey()
+ 	{
+ 		return 'id';
+ 	}
+
 
  	public function save()
  	{
