@@ -8,12 +8,13 @@ namespace app\models;
 
 use app\core\Model;
 use app\core\DbModel;
+use app\core\UserModel;
 /*
  *	@author Alexandre J. Martins <contato@ajmartins.com.br>
- *	@package app\core
+ *	@package app\models
  */
 
- class User extends DbModel
+ class User extends UserModel
  {
  	const STATUS_INACTIVE = 0;
  	const STATUS_ACTIVE = 1;
@@ -69,6 +70,11 @@ use app\core\DbModel;
  			'password' => 'Password',
  			'confirmPassword' => 'Confirm Password',
  		];
+ 	}
+
+ 	public function getDisplayName()
+ 	{
+ 		return $this->firstname.' '.$this->lastname;
  	}
 
  }

@@ -5,6 +5,8 @@
  *	
  */
 namespace app\core;
+
+// use app\core\middlewares\AuthMiddleware;
 /*
  *	@author Alexandre J. Martins <contato@ajmartins.com.br>
  *	@package app\core
@@ -12,6 +14,8 @@ namespace app\core;
 class Controller
 {
 	public $layout = 'main';
+	public $action = '';
+	protected $middleware = array();
 
 	public function setLayout($layout)
 	{
@@ -21,5 +25,15 @@ class Controller
 	public function render($view, $params = [])
 	{
 		return Application::$app->router->renderView($view, $params);
+	}
+
+	public function registerMiddleware($middleware)
+	{
+		$this->middlewares[] = $middleware;
+	}
+
+	public function getMiddlewares()
+	{
+		return $middleware;
 	}
 }

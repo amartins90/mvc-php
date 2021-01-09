@@ -1,3 +1,4 @@
+<h1>Contact us</h1> 
 <form action="" method="POST">
   <div class="mb-3">
     <label>Subject</label>

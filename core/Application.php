@@ -23,6 +23,7 @@ class Application
 	public $session;
 	public $user;
 	public $userClass;
+	public $layout = 'main';
 
 	public function __construct($rootPath, $config)
 	{
@@ -46,7 +47,12 @@ class Application
 
 	public function run()
 	{
-		echo $this->router->resolve();
+		try {
+			echo $this->router->resolve();
+		} catch (\Exception $e) {
+			$this->response->setStatusCode($e->getCode());
+			echo $this->router->renderView('error', ['exception' => $e]);
+		}
 	}
 
 	public function getController()
@@ -72,5 +78,10 @@ class Application
 	{
 		$this->user = null;
 		$this->session->remove('user');
+	}
+
+	public static function isGuest()
+	{
+		return !self::$app->user;
 	}
 }

@@ -12,6 +12,7 @@ use app\models\User;
 use app\core\Session;
 use app\core\Application;
 use app\models\LoginForm;
+use app\core\middlewares\AuthMiddleware;
 /*
  *	@author Alexandre J. Martins <contato@ajmartins.com.br>
  *	@package app\core
@@ -19,6 +20,11 @@ use app\models\LoginForm;
 
 class AuthController extends Controller
 {
+	public function __construct()
+	{
+		$this->registerMiddleware(new AuthMiddleware(['profile']));
+	}
+
 	public function login($request, $response)
 	{
 		$loginForm = new LoginForm();
@@ -58,5 +64,16 @@ class AuthController extends Controller
 		return $this->render('register', [
 			'model' => $user
 		]);
+	}
+
+	public function logout($request, $response)
+	{
+		Application::$app->logout();
+		$response->redirect('/');
+	}
+
+	public function profile()
+	{
+		return $this->render('profile');
 	}
 }
