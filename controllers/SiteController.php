@@ -9,6 +9,7 @@ namespace app\controllers;
 use app\core\Application;
 use app\core\Controller;
 use app\core\Request;
+use app\models\ContactForm;
 /*
  *	@author Alexandre J. Martins <contato@ajmartins.com.br>
  *	@package app\controllers
@@ -23,17 +24,21 @@ class SiteController extends Controller
 		return $this->render('home', $params);
 	}
 
-	public function contact()
+	public function contact($request, $response)
 	{
 		$params = [
 			'name' => 'TheCodeholic'
 		];
-		return $this->render('contact', $params);
+		$contact = new ContactForm();
+		if ($request->isPost()) {
+			$contact->loadData($request->getBody());
+			if ($contact->validate() && $contact->send()) {
+				Application::$app->session->setFlash('success', 'Thanks for contacting us.');
+				return $response->redirect('/contact');
+			}
+
+		}
+		return $this->render('contact', ['model' => $contact]);
 	}
 
-	public function handleContact($request)
-	{
-		$body = $request->getBody();
-		return 'Handling submitted data';
-	}
 }

@@ -6,7 +6,7 @@
  */
 namespace app\core;
 
-use app\core\Database;
+use app\core\db\Database;
 /*
  *	@author Alexandre J. Martins <contato@ajmartins.com.br>
  *	@package app\core
@@ -24,6 +24,7 @@ class Application
 	public $user;
 	public $userClass;
 	public $layout = 'main';
+	public $view;
 
 	public function __construct($rootPath, $config)
 	{
@@ -35,6 +36,7 @@ class Application
  		$this->router = new Router($this->request, $this->response);
  		$this->db = new Database($config['db']);
  		$this->session = new Session();
+ 		$this->view = new View();
 
  		$primaryValue = $this->session->get('user');
  		if ($primaryValue) {
@@ -51,7 +53,7 @@ class Application
 			echo $this->router->resolve();
 		} catch (\Exception $e) {
 			$this->response->setStatusCode($e->getCode());
-			echo $this->router->renderView('error', ['exception' => $e]);
+			echo $this->view->renderView('error', ['exception' => $e]);
 		}
 	}
 

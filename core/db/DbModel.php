@@ -4,10 +4,13 @@
  *	https://www.youtube.com/watch?v=6ERdu4k62wI
  *	
  */
-namespace app\core;
+namespace app\core\db;
+
+use app\core\Model;
+use app\core\Application;
 /*
  *	@author Alexandre J. Martins <contato@ajmartins.com.br>
- *	@package app\core
+ *	@package app\core\db
  */
 
 abstract class DbModel extends Model
